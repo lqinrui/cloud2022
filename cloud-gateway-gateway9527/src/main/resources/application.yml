@@ -19,11 +19,13 @@ spring:
 #            - Before=2022-05-08T23:43:21.780+08:00[Asia/Shanghai]
             - After=2022-05-08T23:33:21.780+08:00[Asia/Shanghai]
 #            - Between=2022-05-08T23:33:21.780+08:00[Asia/Shanghai],2022-05-08T23:40:21.780+08:00[Asia/Shanghai]
-            - Cookie=username,lqr
-            - Header=X-Request-Id,\d+        # 请求头要有X-Request-Id属性并且值为正整数的正则表达式
-            - Host=ai.iyuba.cn
-            - Method=GET
-            - Query=username, \d+    #要有参数名username并且值还是正整数才能路由
+#            - Cookie=username,lqr
+#            - Header=X-Request-Id,\d+        # 请求头要有X-Request-Id属性并且值为正整数的正则表达式
+#            - Host=ai.iyuba.cn
+#            - Method=GET
+#            - Query=username, \d+    #要有参数名username并且值还是正整数才能路由
+          filters:
+            - AddRequestHeader=X-Request-Red, \d+     #不大好使
       discovery:
         locator:
           enabled: true                       # 开启从注册中心动态创建路由的功能，利用微服务名进行路由

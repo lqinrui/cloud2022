@@ -1,6 +1,5 @@
-# bootstrap.yml 是系统级  优先级比application.yml更高
 server:
-  port: 3355
+  port: 3366
 spring:
   application:
     name: config-client
@@ -16,7 +15,6 @@ spring:
     port: 5672
     username: guest
     password: guest
-
 eureka:
   client:
     service-url:

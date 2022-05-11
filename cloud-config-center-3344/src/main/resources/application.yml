@@ -13,8 +13,23 @@ spring:
             - springcloud-config
           username: 15235151477@163.com
           password: jklm6516
+          force-pull: true
+          timeout: 50
       label: main              #分支
+  # rabbitMQ相关配置 15672是web管理界面端口；5672是MQ访问的端口
+  rabbitmq:
+    host: 192.168.106.132
+    port: 5672
+    username: guest
+    password: guest
+
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:7001/eureka
+# rabbitMQ相关配置，暴露bus刷新配置的端点
+management:
+  endpoints:      # 暴露bus刷新配置的端点
+    web:
+      exposure:
+        include: 'bus-refresh'

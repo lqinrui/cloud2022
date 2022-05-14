@@ -8,20 +8,18 @@ spring:
       binders:
         defaultRabbit: # 表示定义的名称，用于于binding整合
           type: rabbit # 消息组件类型
-          environment: # 设置rabbitmq的相关的环境配置
-            spring:
-              rabbitmq:
-                host: 192.168.106.132
-                port: 5672
-                username: guest
-                password: guest
       bindings:
-        intput:   # 这个名字是一个通道的名称
+        input:   # 这个名字是一个通道的名称
           destination: studyExchange # 表示要使用的Exchange名称定义
           content-type: application/json # 设置消息类型，本次为json，文本则设置“text/plain”
-          binder: defaultRabbit # 设置要绑定的消息服务的具体设置
-          group: lqinrui-2          #自定义分组  group 值相同即分为同一组， 自定义分组即开启消息持久化
-
+          binder: { defaultRabbit } # 设置要绑定的消息服务的具体设置
+          group: lqinrui          #自定义分组  group 值相同即分为同一组， 自定义分组即开启消息持久化
+  rabbitmq:
+    host: 192.168.106.132
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /cloud
 eureka:
   client: # 客户端进行Eureka注册的配置
     service-url:

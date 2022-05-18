@@ -22,6 +22,7 @@ public class FlowLimitController {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
+        System.out.println(Thread.currentThread().getName()+"/t      .....testA");
         return "-----------testA";
     }
 

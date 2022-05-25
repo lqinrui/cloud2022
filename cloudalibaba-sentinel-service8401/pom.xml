@@ -18,6 +18,11 @@
 
 
     <dependencies>
+        <dependency>
+            <groupId>com.liqinrui.springcloud</groupId>
+            <artifactId>cloud-api-commons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 <!--        nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

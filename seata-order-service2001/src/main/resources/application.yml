@@ -1,0 +1,57 @@
+server:
+  port: 2001
+spring:
+  application:
+    name: seata-order-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/seata_order?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+feign:
+  hystrix:
+    enabled: false
+logging:
+  level:
+    io:
+      seata: info
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+seata:
+  #事务群组（可以每个应用独立取名，也可以使用相同的名字），要与服务端nacos-config.txt中service.vgroup_mapping中存在,并且要保证多个群组情况下后缀名要保持一致-tx_group
+  application-id: ${spring.application.name}
+  enabled: true
+  enable-auto-data-source-proxy: true #是否开启数据源自动代理,默认为true
+  tx-service-group: fsp_tx_group      #自定义事务组名称需要与seata-server中的对应
+  service:
+    vgroup-mapping:
+      fsp_tx_group: default
+#    grouplist:
+#      default: 127.0.0.1:8091
+    default:
+      grouplist: 127.0.0.1:8091
+    enable-degrade: false
+    disable-global-transaction: false
+  registry:  #registry根据seata服务端的registry配置
+    type: nacos #默认为file
+    nacos:
+      application: seata-server #配置自己的seata服务
+      server-addr: localhost:8848 #根据自己的seata服务配置
+      username: nacos #根据自己的seata服务配置
+      password: nacos #根据自己的seata服务配置
+      cluster: default # 配置自己的seata服务cluster, 默认为 default
+      group: SEATA_GROUP #根据自己的seata服务配置
+      namespace: public
+  config:
+    type: nacos #默认file,如果使用file不配置下面的nacos,直接配置seata.service
+    nacos:
+      server-addr: localhost:8848 #配置自己的nacos地址
+      group: SEATA_GROUP #配置自己的dev
+      username: nacos #配置自己的username
+      password: nacos #配置自己的password
+      dataId: seataServer.properties  # #配置自己的dataId,由于搭建服务端时把客户端的配置也写在了seataServer.properties,所以这里用了和服务端一样的配置文件,实际客户端和服务端的配置文件分离出来更好
+      namespace: public
